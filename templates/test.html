@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Friend-zone</title>
+    <link href="{{ url_for('static', filename='style/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="{{ avatar_url }}" alt="" width="100" height="100" style="border-radius: 50%">
+        </div>
+        <div class="col-md-8 social-container my-2">
+            <p> Signed in via: {{ provider }} </p>
+            <p> Name: {{ name }} </p>
+            <p> Email: {{ email }}</p>
+        </div>
+    </div>
+    <div class="row mx-auto mt-4">
+        <button class="btn btn-danger">
+            <a href="/logout">Logout</a>
+        </button>
+    </div>
+</body>
+
+</html>
