@@ -81,6 +81,7 @@ def fb_callback():
     session['name'] = name
     session['avatar_url'] = avatar_url
 
+    """
     return render_template(
         "test.html",
         name=name,
@@ -88,6 +89,8 @@ def fb_callback():
         avatar_url=avatar_url,
         provider="Facebook",
     )
+    """
+    return render_template("map.html")
 
 
 @app.route("/logout")
