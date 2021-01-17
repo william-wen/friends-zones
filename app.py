@@ -11,7 +11,7 @@ app.config['STYLE_FOLDER'] = os.path.join('static', 'style')
 app.config['SECRET_KEY'] = SECRET_KEY = os.environ.get(
     'SECRET_KEY') or b'6\xe9\xda\xead\x81\xf7\x8d\xbbH\x87\xe8m\xdd3%'
 
-URL = "https://2d4b4083f102.ngrok.io"
+URL = "https://39fd62da1b76.ngrok.io"
 
 # Facebook Config
 FB_CLIENT_ID = "484970169157197"
@@ -111,7 +111,8 @@ def join_group_temp():
 @app.route("/join-group", methods=["POST"])
 def join_group():
     group_code = request.form["group-code"]
-    db.child("users").child(session['name']).child("group_code").set(group_code)
+    db.child("users").child(session['name']).child(
+        "group_code").set(group_code)
 
     return render_template("interests.html")
 
@@ -127,25 +128,32 @@ def get_profile():
     max_budget = request.form["inlineRadioOptions"]
     end_time = request.form["appt2"]
 
-    db.child("users").child(session.get("name")).child("interests").set(interests)
-    db.child("users").child(session.get("name")).child("end_time").set(end_time)
-    db.child("users").child(session.get("name")).child("max_budget").set(max_budget)
-    
+    db.child("users").child(session.get("name")).child(
+        "interests").set(interests)
+    db.child("users").child(session.get("name")
+                            ).child("end_time").set(end_time)
+    db.child("users").child(session.get("name")).child(
+        "max_budget").set(max_budget)
+
     return render_template("map.html", api_key=api_key)
 
 
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
     latitude_longitude = request.get_json()
-    interests = db.child("users").child(session.get("name")).child("interests").get().val()
-    end_time = db.child("users").child(session.get("name")).child("end_time").get().val()
-    max_budget = db.child("users").child(session.get("name")).child("max_budget").get().val()
+    interests = db.child("users").child(
+        session.get("name")).child("interests").get().val()
+    end_time = db.child("users").child(
+        session.get("name")).child("end_time").get().val()
+    max_budget = db.child("users").child(
+        session.get("name")).child("max_budget").get().val()
 
     year = datetime.datetime.now().year
     month = datetime.datetime.now().month
     day = datetime.datetime.now().day
 
-    end_time = datetime.datetime.strptime(f"{year}-{month}-{day} {end_time}", "%Y-%m-%d %H:%M")
+    end_time = datetime.datetime.strptime(
+        f"{year}-{month}-{day} {end_time}", "%Y-%m-%d %H:%M")
 
     locations = get_recommended_locations(
         latitude_longitude["latitude"],
