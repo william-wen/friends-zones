@@ -18,12 +18,12 @@
             {"latitude": latitude, "longitude": longitude}
          ),
          dataType: "json",
-         // success: function(response) {
-         //    console.log(response);
-         // },
-         // error: function(err) {
-         //    console.log(err);
-         // }
+         success: function(response) {
+            console.log(response);
+         },
+         error: function(err) {
+            console.log(err);
+         }
       });
       console.log("goodbye")
       alert("Latitude : " + latitude + " Longitude: " + longitude);

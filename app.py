@@ -110,7 +110,7 @@ def get_recommendations():
     # max_budget = request.form["max_budget"]
     # min_budget = request.form["min_budget"]
     latitude_longitude = request.get_json()
-    print(latitude_longitude)
+
     return latitude_longitude
     # location_info = get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget)
     
