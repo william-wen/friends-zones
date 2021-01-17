@@ -28,7 +28,7 @@
         <form id="join-group" action="{{ url_for('get_profile') }}" method="POST">
             <label for="exampleInputEmail1">Activities</label>
             <div class="selectWrapper">
-                <select class="selectBox" name="interests" id="activities" multiple="multiple">
+                <select class="selectBox" name="interests" id="activities" multiple="multiple" required>
                     <option value="restaurant">Restaurant</option>
                     <option value="amusement_park">Amusement Park</option>
                     <option value="night_club">Night Club</option>
