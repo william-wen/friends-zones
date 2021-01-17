@@ -3,10 +3,38 @@
 <script type="text/javascript">
   var watchID;
   var geoLoc;
+  var prevLocation = null;
 
   function showLocation(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
+
+    var size = new google.maps.Size(6, 12);
+    var myloc = new google.maps.Marker({
+      clickable: false,
+      icon: "./static/images/marker.png",
+      shadow: null,
+      zIndex: 999,
+      scaledSize: size,
+      map, // your google.maps.Map object
+    });
+
+    map.setCenter({ lat: latitude, lng: longitude });
+
+    var me = new google.maps.LatLng(
+      position.coords.latitude,
+      position.coords.longitude
+    );
+
+    if (prevLocation === null) {
+      prevLocation = myloc;
+      map.setZoom(15);
+    } else {
+      prevLocation.setMap(null);
+      prevLocation = myloc;
+    }
+    myloc.setPosition(me);
+
     $.ajax({
       type: "POST",
       url: "{{ url_for('get_recommendations') }}",
@@ -20,7 +48,7 @@
         console.log(err);
       },
     });
-    alert("Latitude : " + latitude + " Longitude: " + longitude);
+    //  alert("Latitude : " + latitude + " Longitude: " + longitude);
   }
 
   function errorHandler(err) {
@@ -55,7 +83,7 @@
     <form>
       <input
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary btn-success"
         onclick="getLocationUpdate();"
         value="Start Tracking Location"
       />
