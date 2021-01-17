@@ -10,6 +10,22 @@
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
       alert("Latitude : " + latitude + " Longitude: " + longitude);
+      // $.ajax({
+      //    type: "POST",
+      //    url: "{{ url_for("get_recommendations") }}",
+      //    contentType: "application/json",
+      //    data: JSON.stringify(
+      //       {"latitude": latitude, "longitude": longitude}
+      //    ),
+      //    dataType: "json",
+      //    success: function(response) {
+      //       console.log(response);
+      //    },
+      //    error: function(err) {
+      //       console.log(err);
+      //    }
+      // });
+
    }
 
    function errorHandler(err) {
@@ -34,7 +50,7 @@
    }
 </script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap&libraries=&v=weekly"
    defer></script>
 
 <form>

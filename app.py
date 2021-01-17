@@ -3,14 +3,14 @@ from flask import *
 import pyrebase
 import requests_oauthlib
 from requests_oauthlib.compliance_fixes import facebook_compliance_fix
-from places import get_recommended_locations
+from places import get_recommended_locations, api_key
 
 app = Flask(__name__)
 app.config['STYLE_FOLDER'] = os.path.join('static', 'style')
 app.config['SECRET_KEY'] = SECRET_KEY = os.environ.get(
     'SECRET_KEY') or b'6\xe9\xda\xead\x81\xf7\x8d\xbbH\x87\xe8m\xdd3%'
 
-URL = "https://3cb2e08f11e8.ngrok.io"
+URL = "https://9aebc7405841.ngrok.io"
 
 # Facebook Config
 FB_CLIENT_ID = "484970169157197"
@@ -91,8 +91,7 @@ def fb_callback():
         provider="Facebook",
     )
     """
-    return render_template("map.html")
-
+    return render_template("map.html", api_key=api_key)
 
 
 @app.route("/logout")
@@ -106,14 +105,12 @@ def logout():
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
     # The variable name for form input tag needs to be interests, end_time, etc. in HTML
-    interests = request.form["interests"]
-    end_time = request.form["end_time"]
-    max_budget = request.form["max_budget"]
-    min_budget = request.form["min_budget"]
-    lat = request.form["latitude"]
-    lng = request.form["longitude"]
-
-    location_info = get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget)
-
-    return render_template("<REPLACE_ME>", location_info=location_info) # location_info is a dict
-
+    # interests = request.form["interests"]
+    # end_time = request.form["end_time"]
+    # max_budget = request.form["max_budget"]
+    # min_budget = request.form["min_budget"]
+    latitude_longitude = request.get_json()
+    return latitude_longitude
+    # location_info = get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget)
+    
+    # return render_template("<REPLACE_ME>", location_info=location_info) # location_info is a dict
