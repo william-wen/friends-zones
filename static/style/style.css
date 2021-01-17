@@ -31,6 +31,12 @@ img {
   text-decoration: none;
 }
 
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
