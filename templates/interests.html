@@ -18,17 +18,17 @@
     <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css" />
     <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Friend-Zones</title>
 </head>
 
 <body>
 
-    <h2 class="title">Pick Activity Preferences</h2>
+    <h2 class="title">Preferences</h2>
     <div class="form-group">
         <form id="join-group" action="{{ url_for('get_profile') }}" method="POST">
-            <label class="margin-label"> Activities </label>
-            <div>
-                <select name="interests" id="activities" multiple="multiple">
+            <label for="exampleInputEmail1">Activities</label>
+            <div class="selectWrapper">
+                <select class="selectBox" name="interests" id="activities" multiple="multiple" required>
                     <option value="restaurant">Restaurant</option>
                     <option value="amusement_park">Amusement Park</option>
                     <option value="night_club">Night Club</option>
@@ -39,7 +39,7 @@
             </div>
 
             <label class="margin-label">Choose a Price Range</label>
-            <div>
+            <div class="price">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                         value="$">
@@ -63,8 +63,8 @@
             </div>
             <label class="margin-label" for="appt">Choose a time for your meeting:</label>
             <div>
-                <input type="time" id="appt" name="appt1" min="09:00" max="18:00" required>
-                <input type="time" id="appt" name="appt2" min="09:00" max="18:00" required>
+                <input class="meet" type="time" id="appt" name="appt1" required>
+                <input class="meet" type="time" id="appt" name="appt2" required>
             </div>
         </form>
         <button type="submit" class="btn btn-success btn-custom" form="join-group" value="Submit">Submit</button>

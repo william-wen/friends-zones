@@ -1,0 +1,30 @@
+body {
+    background-image: linear-gradient(to bottom right, lightgreen, white);
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.mid-wrapper {
+    margin: auto;
+    width: 80%;
+    
+}
+
+.center-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-long {
+    margin-top: 25px;
+}
+
+.logo {
+    width: 250px;
+    height: 250px;
+    margin-left: 25px;
+}
+
+.desc {
+    text-align: center;
+}
