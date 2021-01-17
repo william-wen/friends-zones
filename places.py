@@ -113,11 +113,11 @@ def get_recommended_locations(
     return chosen_locations
 
 
-lat = 43.5556018 # Get from Yifei's part
-lng = -79.7241566 # Get from Yifei's part
-interests = ["restaurant"] # Get from Will's part
-end_time = datetime.datetime.strptime("2021-01-17 20:15", "%Y-%m-%d %H:%M") # Get from Will's part
-max_budget = 4 # Get from Will's part
-min_budget = 0 # Get from Will's part
+# lat = 43.5556018 # Get from Yifei's part
+# lng = -79.7241566 # Get from Yifei's part
+# interests = ["restaurant"] # Get from Will's part
+# end_time = datetime.datetime.strptime("2021-01-17 20:15", "%Y-%m-%d %H:%M") # Get from Will's part
+# max_budget = 4 # Get from Will's part
+# min_budget = 0 # Get from Will's part
 
-print(get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget))
+# print(get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget))
