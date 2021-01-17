@@ -26,50 +26,54 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" href="{{ url_for('static',filename='style/css/login.css')}}" />
     <link rel="stylesheet" href="{{ url_for('static',filename='style/css/util.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='style/style.css')}}" />
     <!--===============================================================================================-->
 
 </head>
 
 <body>
 
-    <h2>Your Group Members</h2>
-
-    </br>
-
-    <div style="padding-left: 3em;">
-        <div>
-            <img src="{{ members['Laura Dang'] }}" />
-            Laura Dang
+    <div class="center">
+        <div class="center">
+            <h2>Your Group Members</h2>
         </div>
 
         </br>
 
-        <div>
-            <img src="{{ members['William Wen'] }}" />
-            William Wen
-        </div>
+        <div class="center">
+            <div class="center">
+                <img src="{{ members['Laura Dang'] }}" />
+                Laura Dang
+            </div>
 
-        </br>
+            </br>
 
-        <div>
-            <img src="{{ members['Yifei Zhang'] }}" />
-            Yifei Zhang
-        </div>
+            <div class="center">
+                <img src="{{ members['William Wen'] }}" />
+                William Wen
+            </div>
 
-        </br>
+            </br>
 
-        <div>
-            <img src="{{ members['Olivia Xie'] }}" />
-            Olivia Xie
+            <div class="center">
+                <img src="{{ members['Yifei Zhang'] }}" />
+                Yifei Zhang
+            </div>
+
+            </br>
+
+            <div class="center">
+                <img src="{{ members['Olivia Xie'] }}" />
+                Olivia Xie
+            </div>
+
+            <div class="center">
+                <button class="login100-form-btn" style="background-color: #5DB075;">
+                    <a href="{{ url_for('join_group') }}">OK</a>
+                </button>
+            </div>
         </div>
     </div>
-
-    <div class="container-login100-form-btn m-t-17">
-        <button class="login100-form-btn" style="background-color: #5DB075;">
-            <a href="{{ url_for('join_group') }}">OK</a>
-        </button>
-    </div>
-
 
 </body>
 
