@@ -1,6 +1,7 @@
 .title {
     text-align: center;
     margin: 32px;
+    position:relative;
 }
 
 .form-group {
