@@ -1,13 +1,47 @@
+img {
+  border: 3px solid #ffffff;
+}
+
+.container-fluid {
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-fluid > div {
+  width: 85%;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.card {
+  width: 100%;
+}
+
+.social-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn a, .btn a:hover {
+  color: white;
+  text-decoration: none;
+}
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-       #map {
-        height: 100%;
-      }
-      
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+
+#map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

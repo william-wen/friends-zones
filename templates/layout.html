@@ -2,14 +2,24 @@
 <html>
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Friend Zones</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style/style.css')}}" />
+
 </head>
 
 <body>
 
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid">
+        <div>
+            <h1 class="text-center" style="color: black;">{% block title %}{% endblock %}</h1>
+            <div class="card p-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
     <script src="{{ url_for('static',filename='style/index.js')}}"></script>
 
