@@ -10,6 +10,7 @@ api_key = config['googleapi']["API_KEY"]
 
 place_api_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 direction_api_url = "https://maps.googleapis.com/maps/api/directions/json"
+maps_url = "https://www.google.com/maps/search/?api=1&query="
 
 travel_modes = ["driving", "walking", "bicycling", "transit"]
 regex_hours = r"(?P<hours>\d+) hours"
@@ -29,7 +30,6 @@ def get_filtered_object(lat: int, lng: int, obj: dict, end_time: datetime.dateti
     distance_found = False
 
     for travel_mode in travel_modes:
-        print(travel_mode)
         params = {
             "mode": travel_mode,
             "origin": f"{lat},{lng}",
@@ -88,8 +88,27 @@ def get_recommended_locations(
 
         for obj in data["results"]:
             obj = get_filtered_object(lat, lng, obj, end_time)
+
             if obj:
-                chosen_locations.append(obj)
+                location_info = {}
+                coordinates = obj["geometry"]["location"]
+                latitude = coordinates["lat"]
+                longitude = coordinates["lng"]
+                address = obj["vicinity"]
+
+                location_info["name"] = obj["name"]
+                location_info["latitude"] = latitude
+                location_info["longitude"] = longitude
+                location_info["address"] = address
+                location_info["photo_reference"] = obj["photos"][0]["photo_reference"] #https://developers.google.com/places/web-service/photos
+                location_info["price_level"] = obj["price_level"]
+                location_info["rating"] = obj["rating"]
+                location_info["types"] = obj["types"]
+                location_info["user_ratings_total"] = obj["user_ratings_total"]
+                location_info["travel_info"] = obj["travel_info"]
+                location_info["google_maps_link"] = f"{maps_url}{address}"
+                
+                chosen_locations.append(location_info)
 
     return chosen_locations
 
@@ -97,7 +116,7 @@ def get_recommended_locations(
 lat = 43.5556018 # Get from Yifei's part
 lng = -79.7241566 # Get from Yifei's part
 interests = ["restaurant"] # Get from Will's part
-end_time = datetime.datetime.strptime("2021-01-16 20:15", "%Y-%m-%d %H:%M") # Get from Will's part
+end_time = datetime.datetime.strptime("2021-01-17 20:15", "%Y-%m-%d %H:%M") # Get from Will's part
 max_budget = 4 # Get from Will's part
 min_budget = 0 # Get from Will's part
 
