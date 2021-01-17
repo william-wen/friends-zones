@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-    <title>Friend-zone</title>
-    <link href="{{ url_for('static', filename='style/style.css') }}" rel="stylesheet">
-</head>
+{% block content %}
 
-<body>
-    <div class="row">
-        <div class="col-md-8 mx-auto social-container my-2 order-md-1">
-            <button class="btn btn-primary mb-2">
-                <a href="/fb-login">Login with Facebook</a>
-            </button>
-        </div>
+<div class="row">
+    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+        <button class="btn btn-primary mb-2">
+            <a href="/fb-login">Login with Facebook</a>
+        </button>
     </div>
-</body>
+</div>
 
-</html>
+{% endblock %}
