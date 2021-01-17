@@ -11,7 +11,7 @@ app.config['STYLE_FOLDER'] = os.path.join('static', 'style')
 app.config['SECRET_KEY'] = SECRET_KEY = os.environ.get(
     'SECRET_KEY') or b'6\xe9\xda\xead\x81\xf7\x8d\xbbH\x87\xe8m\xdd3%'
 
-URL = "https://9aebc7405841.ngrok.io"
+URL = "https://2d4b4083f102.ngrok.io"
 
 # Facebook Config
 FB_CLIENT_ID = "484970169157197"
