@@ -11,12 +11,12 @@ api_key = config['googleapi']["API_KEY"]
 place_api_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 direction_api_url = "https://maps.googleapis.com/maps/api/directions/json"
 
-travel_modes = ["DRIVING", "WALKING", "BICYCLING", "TRANSIT"]
-regex_hours = r"\d+ hours"
-regex_mins = r"\d+ mins"
+travel_modes = ["driving", "walking", "bicycling", "transit"]
+regex_hours = r"(?P<hours>\d+) hours"
+regex_mins = r"(?P<minutes>\d+) mins"
 
     
-def get_filtered_object(lat: int, lng: int, obj: dict, arrival_time: int):
+def get_filtered_object(lat: int, lng: int, obj: dict, end_time: datetime.datetime):
     if obj["business_status"] != "OPERATIONAL":
         return False
     if "opening_hours" not in obj:
@@ -26,27 +26,35 @@ def get_filtered_object(lat: int, lng: int, obj: dict, arrival_time: int):
     
     travel_info = []
     destination = obj["place_id"]
+    distance_found = False
 
     for travel_mode in travel_modes:
+        print(travel_mode)
         params = {
             "mode": travel_mode,
             "origin": f"{lat},{lng}",
             "destination": f"place_id:{destination}",
-            "arrival_time": int(arrival_time),
             "key": api_key
         }
         response = requests.get(direction_api_url, params=params).json()
         
         if response["routes"]:
             travel_time = response["routes"][0]["legs"][0]["duration"]["text"]
+            hours_match = re.search(regex_hours, travel_time)
+            mins_match = re.search(regex_mins, travel_time)
 
-            hours = re.findall(regex_hours, travel_time)
-            mins = re.findall(regex_mins, travel_time)
+            hours = int(hours_match.group("hours")) if hours_match else 0
+            mins = int(mins_match.group("minutes")) if mins_match else 0
 
-            hours = hours[0] if hours else 0
-            mins = mins[0] if mins else 0
-            
-            travel_info.append({travel_mode: travel_time})
+            now = datetime.datetime.now()
+            time_left = end_time - datetime.timedelta(hours=hours, minutes=mins) - now
+
+            if time_left >= datetime.timedelta(0):
+                if not distance_found:
+                    travel_distance = response["routes"][0]["legs"][0]["distance"]["text"]
+                    travel_info.append({"TRAVEL_DISTANCE": travel_distance})
+                    distance_found = True
+                travel_info.append({travel_mode: travel_time})
 
     if travel_info:
         obj["travel_info"] = travel_info
@@ -70,10 +78,7 @@ def get_recommended_locations(
         "minprice": min_budget,
         "key": api_key,
     }
-    
-    arrival_time = end_time - datetime.timedelta(minutes=30) #hardcoded assuming spending 30 min/destination
-    arrival_time = mktime(arrival_time.timetuple())
-
+        
     chosen_locations = []
 
     for interest in interests:
@@ -82,19 +87,18 @@ def get_recommended_locations(
         data = response.json()
 
         for obj in data["results"]:
-            obj = get_filtered_object(lat, lng, obj, arrival_time)
+            obj = get_filtered_object(lat, lng, obj, end_time)
             if obj:
                 chosen_locations.append(obj)
 
     return chosen_locations
 
 
-lat = -33.8670522
-lng = 151.1957362
-interests = ["restaurant", "cruise"]
-end_time = datetime.datetime.strptime("2020-01-17 10:00", "%Y-%m-%d %H:%M")
-max_budget = 4
-min_budget = 0
+lat = 43.5556018 # Get from Yifei's part
+lng = -79.7241566 # Get from Yifei's part
+interests = ["restaurant"] # Get from Will's part
+end_time = datetime.datetime.strptime("2021-01-16 20:15", "%Y-%m-%d %H:%M") # Get from Will's part
+max_budget = 4 # Get from Will's part
+min_budget = 0 # Get from Will's part
 
 print(get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget))
-# print(get_api_results(f"{lat},{lng}"))
