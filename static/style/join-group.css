@@ -1,0 +1,13 @@
+.title {
+    text-align: center;
+    margin: 32px;
+}
+
+.form-group {
+    margin: auto;
+    width: 80%;
+}
+
+.btn-custom {
+    margin-top: 15px;
+}
