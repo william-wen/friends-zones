@@ -9,7 +9,6 @@
    function showLocation(position) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      console.log("hello");
       $.ajax({
          type: "POST",
          url: "{{ url_for('get_recommendations') }}",
@@ -25,7 +24,6 @@
             console.log(err);
          }
       });
-      console.log("goodbye")
       alert("Latitude : " + latitude + " Longitude: " + longitude);
    }
 
