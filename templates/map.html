@@ -9,23 +9,24 @@
    function showLocation(position) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
+      console.log("hello");
+      $.ajax({
+         type: "POST",
+         url: "{{ url_for('get_recommendations') }}",
+         contentType: "application/json",
+         data: JSON.stringify(
+            {"latitude": latitude, "longitude": longitude}
+         ),
+         dataType: "json",
+         // success: function(response) {
+         //    console.log(response);
+         // },
+         // error: function(err) {
+         //    console.log(err);
+         // }
+      });
+      console.log("goodbye")
       alert("Latitude : " + latitude + " Longitude: " + longitude);
-      // $.ajax({
-      //    type: "POST",
-      //    url: "{{ url_for("get_recommendations") }}",
-      //    contentType: "application/json",
-      //    data: JSON.stringify(
-      //       {"latitude": latitude, "longitude": longitude}
-      //    ),
-      //    dataType: "json",
-      //    success: function(response) {
-      //       console.log(response);
-      //    },
-      //    error: function(err) {
-      //       console.log(err);
-      //    }
-      // });
-
    }
 
    function errorHandler(err) {
@@ -49,6 +50,7 @@
       }
    }
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap&libraries=&v=weekly"
    defer></script>
