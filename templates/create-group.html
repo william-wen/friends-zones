@@ -19,13 +19,12 @@
 
     <h2 class="title">Create Group</h2>
     <div class="form-group">
-        <form id="join-group">
+        <form id="join-group" action="{{ url_for('join_group') }}" method="POST">
             <label for="exampleInputEmail1">Enter Group Code</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Code">
+            <input type="text" name="group-code" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Code">
             <small id="emailHelp" class="form-text text-muted">Please Enter Your Group Code</small>
+            <button type="submit" class="btn btn-success btn-custom" form="join-group" value="Submit">Submit</button>
         </form>
-        <button type="submit" class="btn btn-success btn-custom" form="join-group" value="Submit">Submit</button>
     </div>
 
     <!-- Optional JavaScript -->
