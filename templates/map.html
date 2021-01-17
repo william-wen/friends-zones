@@ -42,7 +42,24 @@
       data: JSON.stringify({ latitude: latitude, longitude: longitude }),
       dataType: "json",
       success: function (response) {
-        console.log(response);
+        console.log(response[0]);
+        const {
+          name,
+          latitude,
+          longitude,
+          photo_reference,
+          rating,
+        } = response[0];
+        $("#recommendations")
+          .append(`  <div class="d-inline-flex p-2" style="outline: 1px solid grey; margin: 5px">
+    <img src="./static/images/marker.png" style="width: 75px; height: 75px" />
+    <div>
+      <b>${name}</b>
+      <div class="d-inline-flex p2">
+        <img src="./static/images/star.png" style="height: 20px; width: 20px" />
+      </div>
+    </div>
+  </div>`);
       },
       error: function (err) {
         console.log(err);
@@ -69,6 +86,38 @@
       alert("Sorry, browser does not support geolocation!");
     }
   }
+
+  function blah() {
+    $("#recommendation-container")
+      .append(`  <div class="d-inline-flex p-2" style="outline: 1px solid grey; margin: 5px">
+    <img src="./static/images/marker.png" style="width: 75px; height: 75px" />
+    <div>
+      <b>Tim Hortons</b>
+      <div class="d-inline-flex p2">
+        <img src="./static/images/star.png" style="height: 20px; width: 20px" />
+      </div>
+    </div>
+  </div>`);
+
+    photo_reference = `CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU`;
+    $.ajax({
+      type: "GET",
+      crossDomain: true,
+      dataType: "image",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_reference}&key={{api_key}}`,
+      success: function (res) {
+        console.log(res);
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -78,17 +127,22 @@
 ></script>
 
 <div id="map"></div>
-<div class="card" style="width: 100vw; height: 35%">
-  <div class="card-body">
-    <form>
-      <input
-        type="button"
-        class="btn btn-primary btn-success"
-        onclick="getLocationUpdate();"
-        value="Start Tracking Location"
-      />
-    </form>
-  </div>
+<div style="width: 100vw; height: 35%; overflow-y: scroll">
+  <form>
+    <input
+      type="button"
+      class="btn btn-primary btn-success btn-sm"
+      onclick="getLocationUpdate();"
+      value="Start Tracking Location"
+    />
+  </form>
+  <button id="blah" onclick="blah()">blah</button>
+  <h3 id="recommendations">Places to Visit</h3>
+  <div id="recommendation-container"></div>
+
+  {% endblock %}
 </div>
 
-{% endblock %}
+<script>
+  document.getElementById("blah").addEventListener("click", blah());
+</script>
