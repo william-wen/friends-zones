@@ -102,6 +102,18 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/join-group-temp")
+def join_group_temp():
+    return render_template("create-group.html")
+
+@app.route("/join-group", methods=["POST"])
+def join_group():
+    group_code = request.form["group-code"]
+    db.child("users").child(session['name']).push({"group_code": group_code})
+
+    return redirect(url_for('join_group_temp'))
+
+
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
     # The variable name for form input tag needs to be interests, end_time, etc. in HTML
