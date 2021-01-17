@@ -7,7 +7,8 @@ from places import get_recommended_locations
 
 app = Flask(__name__)
 app.config['STYLE_FOLDER'] = os.path.join('static', 'style')
-app.config['SECRET_KEY'] = SECRET_KEY = os.environ.get('SECRET_KEY') or b'6\xe9\xda\xead\x81\xf7\x8d\xbbH\x87\xe8m\xdd3%'
+app.config['SECRET_KEY'] = SECRET_KEY = os.environ.get(
+    'SECRET_KEY') or b'6\xe9\xda\xead\x81\xf7\x8d\xbbH\x87\xe8m\xdd3%'
 
 URL = "https://3cb2e08f11e8.ngrok.io"
 
@@ -22,10 +23,10 @@ FB_SCOPE = ["email"]
 
 # Firebase Config
 firebase_config = {
-  "apiKey": "AIzaSyAKXOcPOF6HJSB-vSTGAram9dyPtGNWDYc",
-  "authDomain": "friend-zones-7500a.firebaseapp.com",
-  "databaseURL": "https://friend-zones-default-rtdb.firebaseio.com",
-  "storageBucket": "friend-zones.appspot.com"
+    "apiKey": "AIzaSyAKXOcPOF6HJSB-vSTGAram9dyPtGNWDYc",
+    "authDomain": "friend-zones-7500a.firebaseapp.com",
+    "databaseURL": "https://friend-zones-default-rtdb.firebaseio.com",
+    "storageBucket": "friend-zones.appspot.com"
 }
 
 firebase = pyrebase.initialize_app(firebase_config)
@@ -81,6 +82,7 @@ def fb_callback():
     session['name'] = name
     session['avatar_url'] = avatar_url
 
+    """
     return render_template(
         "test.html",
         name=name,
@@ -88,6 +90,9 @@ def fb_callback():
         avatar_url=avatar_url,
         provider="Facebook",
     )
+    """
+    return render_template("map.html")
+
 
 
 @app.route("/logout")
