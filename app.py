@@ -108,10 +108,8 @@ def join_group_temp():
     return render_template("create-group.html")
 
 
-@app.route("/join-group", methods=["POST"])
+@app.route("/join-group")
 def join_group():
-    group_code = request.form["group-code"]
-    db.child("users").child(session['name']).child("group_code").set(group_code)
 
     return render_template("interests.html")
 
@@ -156,3 +154,13 @@ def get_recommendations():
     )
     print(locations)
     return jsonify(locations)
+
+@app.route("/groupmembers")
+def group_members():
+    members = {}
+    members["Olivia Xie"] = "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10223800101526716&height=50&width=50&ext=1613460767&hash=AeSPpq7qAVZTW_lXR4Y"
+    members["Laura Dang"] = "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2234534156678233&height=50&width=50&ext=1613461426&hash=AeRfyYt44G8ZBTv0W_Y"
+    members["Yifei Zhang"] = "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=4139616992734146&height=50&width=50&ext=1613461249&hash=AeRbETb0mukSewdxlbo"
+    members["William Wen"] = "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2860772024206205&height=50&width=50&ext=1613458462&hash=AeRMcAUTSatbq4Hzlxc"
+
+    return render_template("groupmembers.html", members=members)
