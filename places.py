@@ -69,7 +69,7 @@ def get_recommended_locations(
     interests: list, 
     end_time: datetime.datetime, 
     max_budget: int,
-    min_budget: int
+    min_budget=0
 ):
     params = {
         "location": f"{lat},{lng}",
@@ -100,7 +100,10 @@ def get_recommended_locations(
                 location_info["latitude"] = latitude
                 location_info["longitude"] = longitude
                 location_info["address"] = address
-                location_info["photo_reference"] = obj["photos"][0]["photo_reference"] #https://developers.google.com/places/web-service/photos
+                try:
+                    location_info["photo_reference"] = obj["photos"][0]["photo_reference"] #https://developers.google.com/places/web-service/photos
+                except:
+                    pass
                 location_info["price_level"] = obj["price_level"]
                 location_info["rating"] = obj["rating"]
                 location_info["types"] = obj["types"]

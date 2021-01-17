@@ -1,6 +1,7 @@
 import os
 from flask import *
 import pyrebase
+import datetime
 import requests_oauthlib
 from requests_oauthlib.compliance_fixes import facebook_compliance_fix
 from places import get_recommended_locations, api_key
@@ -106,24 +107,52 @@ def logout():
 def join_group_temp():
     return render_template("create-group.html")
 
+
 @app.route("/join-group", methods=["POST"])
 def join_group():
     group_code = request.form["group-code"]
-    db.child("users").child(session['name']).push({"group_code": group_code})
+    db.child("users").child(session['name']).child("group_code").set(group_code)
 
-    return redirect(url_for('join_group_temp'))
+    return render_template("interests.html")
+
+
+# @app.route("/profile")
+# def profile():
+#     return render_template("interests.html")
+
+
+@app.route("/get-profile", methods=["POST"])
+def get_profile():
+    interests = request.form["interests"]
+    max_budget = request.form["inlineRadioOptions"]
+    end_time = request.form["appt2"]
+
+    db.child("users").child(session.get("name")).child("interests").set(interests)
+    db.child("users").child(session.get("name")).child("end_time").set(end_time)
+    db.child("users").child(session.get("name")).child("max_budget").set(max_budget)
+    
+    return render_template("map.html", api_key=api_key)
 
 
 @app.route("/recommendations", methods=["POST"])
 def get_recommendations():
-    # The variable name for form input tag needs to be interests, end_time, etc. in HTML
-    # interests = request.form["interests"]
-    # end_time = request.form["end_time"]
-    # max_budget = request.form["max_budget"]
-    # min_budget = request.form["min_budget"]
     latitude_longitude = request.get_json()
+    interests = db.child("users").child(session.get("name")).child("interests").get().val()
+    end_time = db.child("users").child(session.get("name")).child("end_time").get().val()
+    max_budget = db.child("users").child(session.get("name")).child("max_budget").get().val()
 
-    return latitude_longitude
-    # location_info = get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget)
-    
-    # return render_template("<REPLACE_ME>", location_info=location_info) # location_info is a dict
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    day = datetime.datetime.now().day
+
+    end_time = datetime.datetime.strptime(f"{year}-{month}-{day} {end_time}", "%Y-%m-%d %H:%M")
+
+    locations = get_recommended_locations(
+        latitude_longitude["latitude"],
+        latitude_longitude["longitude"],
+        interests,
+        end_time,
+        len(max_budget)
+    )
+    print(locations)
+    return jsonify(locations)

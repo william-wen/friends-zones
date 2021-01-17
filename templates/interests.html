@@ -25,10 +25,10 @@
 
     <h2 class="title">Pick Activity Preferences</h2>
     <div class="form-group">
-        <form id="join-group">
+        <form id="join-group" action="{{ url_for('get_profile') }}" method="POST">
             <label class="margin-label"> Activities </label>
             <div>
-                <select id="activities" multiple="multiple">
+                <select name="interests" id="activities" multiple="multiple">
                     <option value="restaurant">Restaurant</option>
                     <option value="amusement_park">Amusement Park</option>
                     <option value="night_club">Night Club</option>
@@ -42,29 +42,29 @@
             <div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                        value="option1">
+                        value="$">
                     <label class="form-check-label" for="inlineRadio1">$</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                        value="option2">
+                        value="$$">
                     <label class="form-check-label" for="inlineRadio2">$$</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                        value="option3">
+                        value="$$$">
                     <label class="form-check-label" for="inlineRadio3">$$$</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
-                        value="option3">
+                        value="$$$$">
                     <label class="form-check-label" for="inlineRadio3">$$$$</label>
                 </div>
             </div>
             <label class="margin-label" for="appt">Choose a time for your meeting:</label>
             <div>
-                <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
-                <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+                <input type="time" id="appt" name="appt1" min="09:00" max="18:00" required>
+                <input type="time" id="appt" name="appt2" min="09:00" max="18:00" required>
             </div>
         </form>
         <button type="submit" class="btn btn-success btn-custom" form="join-group" value="Submit">Submit</button>
