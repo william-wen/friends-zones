@@ -92,7 +92,7 @@ def fb_callback():
         provider="Facebook",
     )
     """
-    return render_template("map.html", api_key=api_key)
+    return redirect(url_for('join_group_temp'))
 
 
 @app.route("/logout")
@@ -121,7 +121,7 @@ def join_group():
 #     return render_template("interests.html")
 
 
-@app.route("/get-profile", methods=["POST"])
+@app.route("/get-profile", methods=["POST", "GET"])
 def get_profile():
     interests = request.form["interests"]
     max_budget = request.form["inlineRadioOptions"]
