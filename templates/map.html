@@ -42,6 +42,8 @@
       data: JSON.stringify({ latitude: latitude, longitude: longitude }),
       dataType: "json",
       success: function (response) {
+        $("#loading").remove();
+
         response.forEach(res => {
           const { name, latitude, longitude, photo_reference, rating } = res;
 
@@ -53,6 +55,14 @@
           });
 
           var recc = new google.maps.LatLng(latitude, longitude);
+          let stars = "";
+
+          for (let i = 0; i < rating; ++i) {
+            stars += `<img
+                src="./static/images/star.png"
+                style="height: 20px; width: 20px"
+              />`;
+          }
 
           marker.setPosition(recc);
           $("#recommendation-container")
@@ -60,8 +70,8 @@
     <img src="./static/images/icon.jpeg" style="width: 75px; height: 75px" />
     <div>
       <b>${name}</b>
-      <div class="d-inline-flex p2">
-        <img src="./static/images/star.png" style="height: 20px; width: 20px" />
+      <div>
+         ${stars}
       </div>
     </div>
   </div>`);
@@ -87,43 +97,17 @@
       // timeout at 60000 milliseconds (60 seconds)
       var options = { timeout: 60000 };
       geoLoc = navigator.geolocation;
+      $("#recommendation-container")
+        .after(`<div class="d-flex justify-content-center">
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>`);
       watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
     } else {
       alert("Sorry, browser does not support geolocation!");
     }
   }
-
-  //   function blah() {
-  //     $("#recommendation-container")
-  //       .append(`  <div class="d-inline-flex p-2" style="outline: 1px solid grey; margin: 5px">
-  //     <img src="./static/images/marker.png" style="width: 75px; height: 75px" />
-  //     <div>
-  //       <b>Tim Hortons</b>
-  //       <div class="d-inline-flex p2">
-  //         <img src="./static/images/star.png" style="height: 20px; width: 20px" />
-  //       </div>
-  //     </div>
-  //   </div>`);
-
-  //     photo_reference = `CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU`;
-  //     $.ajax({
-  //       type: "GET",
-  //       crossDomain: true,
-  //       // dataType: "image",
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //         //   "Access-Control-Allow-Methods": "GET",
-  //         "Access-Control-Allow-Headers": "Content-Type",
-  //       },
-  //       url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_reference}&key={{api_key}}`,
-  //       success: function (res) {
-  //         console.log(res);
-  //       },
-  //       error: function (err) {
-  //         console.log(err);
-  //       },
-  //     });
-  //   }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
