@@ -110,8 +110,9 @@ def get_recommendations():
     end_time = request.form["end_time"]
     max_budget = request.form["max_budget"]
     min_budget = request.form["min_budget"]
-    lat = 0 #Yifei's part
-    lng = 0 #Yifei's part
+    lat = request.form["latitude"]
+    lng = request.form["longitude"]
+
     location_info = get_recommended_locations(lat, lng, interests, end_time, max_budget, min_budget)
 
     return render_template("<REPLACE_ME>", location_info=location_info) # location_info is a dict
